@@ -4,17 +4,22 @@ import prisma from '@/lib/prisma'
 export async function POST(req: Request) {
   try {
     const data = await req.json()
-    
+
+    if (!data.title || !data.facultyId || !data.date || !data.venue) {
+      return NextResponse.json({ error: 'Missing required fields.' }, { status: 400 })
+    }
+
     const event = await prisma.event.create({
       data: {
         title: data.title,
-        description: data.description,
+        description: data.description || '',
         date: data.date,
-        time: data.time,
+        time: data.time || '',
         venue: data.venue,
-        category: data.category,
-        maxParticipants: parseInt(data.maxParticipants),
-        posterUrl: data.posterUrl || `https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&auto=format&fit=crop&q=60`,
+        category: data.category || 'Technical',
+        maxParticipants: parseInt(data.maxParticipants) || 50,
+        posterUrl: data.posterUrl || null,
+        status: 'PENDING', // All faculty-created events start as PENDING
         facultyId: data.facultyId
       }
     })
@@ -22,6 +27,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ success: true, event })
   } catch (error) {
     console.error(error)
-    return NextResponse.json({ error: 'Internal error' }, { status: 500 })
+    return NextResponse.json({ error: 'Internal server error.' }, { status: 500 })
   }
 }

@@ -1,6 +1,6 @@
 "use client"
 
-import { Plus, Users, Calendar, MapPin, MoreVertical } from 'lucide-react'
+import { Plus, Users, Calendar, MapPin } from 'lucide-react'
 import Link from 'next/link'
 
 export default function FacultyDashboardClient({ events, facultyName }: any) {
@@ -93,9 +93,12 @@ export default function FacultyDashboardClient({ events, facultyName }: any) {
                       </div>
                     </td>
                     <td className="p-4 text-right">
-                      <button className="p-2 text-neutral-400 hover:text-white hover:bg-neutral-700 rounded-lg transition-colors">
-                        <MoreVertical className="w-5 h-5" />
-                      </button>
+                      <Link href={`/faculty/events/${event.id}/participants`}>
+                        <button className="flex items-center gap-1.5 text-sm text-indigo-400 hover:text-indigo-300 hover:bg-indigo-500/10 px-3 py-1.5 rounded-lg transition-colors border border-indigo-500/20 hover:border-indigo-500/40 ml-auto">
+                          <Users className="w-3.5 h-3.5" />
+                          View Participants
+                        </button>
+                      </Link>
                     </td>
                   </tr>
                 ))}
