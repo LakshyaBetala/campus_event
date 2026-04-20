@@ -41,3 +41,21 @@ yarn-error.log*
 next-env.d.ts
 
 /app/generated/prisma
+
+# Agent/AI assistant tools (not part of the project)
+.agents/
+skills-lock.json
+AGENTS.md
+CLAUDE.md
+
+# SQLite database files (runtime data, not source code)
+*.db
+*.db-shm
+*.db-wal
+dev.db
+
+# Editor/IDE directories
+.vscode/
+.idea/
+*.swp
+*.swo
